@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grocery Store</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f9fb;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .product {
+      background: #fff;
+      padding: 20px;
+      margin: 15px auto;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #34495e;
+    }
+
+    .product-price {
+      margin: 5px 0 10px;
+      color: #888;
+    }
+
+    button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    .cart-link {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .cart-link a {
+      color: #2980b9;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .cart-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>🛒 Welcome to the Grocery Store</h2>
+  {% for id, name, price in products %}
+    <div class="product">
+      <div class="product-title">{{ name }}</div>
+      <div class="product-price">₹{{ price }}</div>
+      <form action="/add-to-cart" method="post">
+        <input type="hidden" name="user_id" value="1">
+        <input type="hidden" name="product_id" value="{{ id }}">
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+  {% endfor %}
+  <div class="cart-link">
+    <a href="/cart/1">Go to Cart 🛍️</a>
+  </div>
+</body>
+</html>

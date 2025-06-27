@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .product-name {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .product-price {
+      color: #555;
+    }
+
+    .remove-btn {
+      background-color: #e74c3c;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .remove-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .total {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #222;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #3498db;
+      font-size: 14px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🛒 Your Cart</h2>
+    {% if cart %}
+      {% for id, name, price in cart %}
+        <div class="cart-item">
+          <div>
+            <div class="product-name">{{ name }}</div>
+            <div class="product-price">₹{{ price }}</div>
+          </div>
+          <form action="/remove-from-cart" method="post">
+            <input type="hidden" name="user_id" value="{{ user_id }}">
+            <input type="hidden" name="product_id" value="{{ id }}">
+            <button class="remove-btn" type="submit">Remove</button>
+          </form>
+        </div>
+      {% endfor %}
+      <div class="total"><strong>Total:</strong> ₹{{ total }}</div>
+    {% else %}
+      <p>Your cart is empty.</p>
+    {% endif %}
+    <a href="/">⬅ Back to products</a>
+  </div>
+</body>
+</html>
